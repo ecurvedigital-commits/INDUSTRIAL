@@ -1,0 +1,63 @@
+.loading {
+  min-height: 50vh;
+  padding-block: var(--space-8) var(--space-16);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.card {
+  display: grid;
+  gap: var(--space-3);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  background: var(--surface);
+}
+
+.card span {
+  border-radius: var(--radius-sm);
+  background: var(--surface-subtle);
+  animation: pulse 1.4s ease-in-out infinite alternate;
+}
+
+.card span:first-child {
+  aspect-ratio: 1.5;
+}
+
+.card span:nth-child(2) {
+  width: 70%;
+  height: 1.25rem;
+}
+
+.card span:last-child {
+  width: 90%;
+  height: 2.5rem;
+}
+
+@keyframes pulse {
+  to {
+    opacity: 0.45;
+  }
+}
+
+@media (max-width: 48rem) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 32rem) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card span {
+    animation: none;
+  }
+}

@@ -1,0 +1,57 @@
+.loading {
+  display: grid;
+  min-height: 60vh;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: var(--space-10);
+  padding-block: var(--space-12);
+}
+
+.image,
+.copy span {
+  border-radius: var(--radius-md);
+  background: var(--surface-subtle);
+  animation: pulse 1.4s ease-in-out infinite alternate;
+}
+
+.image {
+  aspect-ratio: 1.2;
+}
+
+.copy {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.copy span {
+  height: 1.25rem;
+}
+
+.copy span:first-child {
+  width: 45%;
+  height: 2rem;
+}
+
+.copy span:last-child {
+  width: 70%;
+}
+
+@keyframes pulse {
+  to {
+    opacity: 0.45;
+  }
+}
+
+@media (max-width: 48rem) {
+  .loading {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image,
+  .copy span {
+    animation: none;
+  }
+}

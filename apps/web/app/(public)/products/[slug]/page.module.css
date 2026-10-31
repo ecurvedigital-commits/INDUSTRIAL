@@ -1,0 +1,221 @@
+.page {
+  min-height: 60vh;
+  padding-block: var(--space-8) var(--space-16);
+  background: var(--surface-page);
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
+
+.breadcrumb a {
+  color: var(--brand-navy);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  align-items: start;
+  gap: var(--space-10);
+}
+
+.imageFrame {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 1.18;
+  overflow: hidden;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.image {
+  object-fit: cover;
+}
+
+.imageFallback {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.placeholderBadge {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+}
+
+.productContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-block: var(--space-4);
+}
+
+.eyebrow {
+  margin: 0 0 var(--space-3);
+  color: var(--brand-amber-strong);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.title {
+  margin: 0;
+  color: var(--brand-navy);
+  font-family: var(--font-outfit), Arial, sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.12;
+}
+
+.sku {
+  margin: var(--space-3) 0 var(--space-4);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.supplyType {
+  margin: var(--space-4) 0 0;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.supplyType strong {
+  color: var(--text-strong);
+}
+
+.summary {
+  margin: var(--space-5) 0 0;
+  color: var(--text-strong);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.description {
+  margin: var(--space-3) 0 0;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+.disclaimer {
+  margin: var(--space-5) 0 0;
+  border-left: 3px solid var(--brand-amber);
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.quoteButton {
+  margin-top: var(--space-6);
+}
+
+.detailSection {
+  margin-top: var(--space-12);
+}
+
+.sectionTitle {
+  margin: 0 0 var(--space-4);
+  color: var(--text-strong);
+  font-family: var(--font-outfit), Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.tableFrame {
+  overflow-x: auto;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.specificationTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.specificationTable th,
+.specificationTable td {
+  min-width: 9rem;
+  border-bottom: 1px solid var(--border-default);
+  padding: var(--space-3) var(--space-4);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.specificationTable th {
+  width: 38%;
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.specificationTable td {
+  color: var(--text-muted);
+}
+
+.specificationTable tr:last-child th,
+.specificationTable tr:last-child td {
+  border-bottom: 0;
+}
+
+.documentList {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding-left: var(--space-5);
+  color: var(--text-muted);
+}
+
+.documentList a {
+  color: var(--brand-navy);
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 48rem) {
+  .detailGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .imageFrame {
+    aspect-ratio: 1.4;
+  }
+
+  .productContent {
+    padding-block: 0;
+  }
+}
+
+@media (max-width: 30rem) {
+  .page {
+    padding-top: var(--space-6);
+  }
+
+  .imageFrame {
+    aspect-ratio: 1.12;
+  }
+}

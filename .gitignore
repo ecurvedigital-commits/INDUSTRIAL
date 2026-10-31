@@ -1,0 +1,14 @@
+node_modules/
+.pnpm-store/
+dist/
+dist-test/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+apps/api/prisma/*.db
+apps/api/prisma/*.db-journal
+.kilo/

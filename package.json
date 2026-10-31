@@ -1,0 +1,31 @@
+{
+  "name": "raj-industrial-platform",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@12.11.2",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @raj/shared build && concurrently -k -n web,api -c cyan,magenta \"pnpm --filter @raj/web dev\" \"pnpm --filter @raj/api start:dev\"",
+    "dev:web": "pnpm --filter @raj/web dev",
+    "dev:api": "pnpm --filter @raj/shared build && pnpm --filter @raj/api start:dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test:api": "pnpm --filter @raj/api test",
+    "db:generate": "pnpm --filter @raj/api db:generate",
+    "db:validate": "pnpm --filter @raj/api db:validate",
+    "db:migrate:dev": "pnpm --filter @raj/api db:migrate:dev",
+    "db:migrate:deploy": "pnpm --filter @raj/api db:migrate:deploy",
+    "clean": "pnpm -r clean"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "concurrently": "9.2.1",
+    "eslint": "10.13.0",
+    "globals": "16.5.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.72.1"
+  }
+}

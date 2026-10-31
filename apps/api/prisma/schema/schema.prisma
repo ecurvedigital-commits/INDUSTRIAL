@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ProductSupplyType {
+  MANUFACTURED
+  DISTRIBUTED
+  CUSTOM
+}
+
+enum ProductStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum QuoteEnquiryStatus {
+  NEW
+  REVIEWING
+  QUOTED
+  CLOSED
+}
+
+model Product {
+  id             String                   @id @default(uuid()) @db.Uuid
+  name           String                   @db.VarChar(180)
+  slug           String                   @unique @db.VarChar(180)
+  sku            String                   @unique @db.VarChar(80)
+  summary        String                   @db.VarChar(500)
+  description    String                   @db.Text
+  supplyType     ProductSupplyType        @map("supply_type")
+  status         ProductStatus            @default(DRAFT)
+  categoryId     String                   @map("category_id") @db.Uuid
+  images         Json?                    @db.JsonB
+  documents      Json?                    @db.JsonB
+  createdAt      DateTime                 @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt      DateTime                 @updatedAt @map("updated_at") @db.Timestamptz(3)
+  category       Category                 @relation(fields: [categoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  specifications ProductSpecification[]
+  enquiries      QuoteEnquiry[]
+
+  @@index([status, name])
+  @@index([categoryId, status])
+  @@map("products")
+}
+
+model Category {
+  id          String    @id @default(uuid()) @db.Uuid
+  name        String    @db.VarChar(160)
+  slug        String    @unique @db.VarChar(160)
+  description String?   @db.Text
+  isActive    Boolean   @default(true) @map("is_active")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(3)
+  products    Product[]
+
+  @@index([isActive, name])
+  @@map("categories")
+}
+
+model ProductSpecification {
+  id        String   @id @default(uuid()) @db.Uuid
+  productId String   @map("product_id") @db.Uuid
+  name      String   @db.VarChar(160)
+  value     String   @db.Text
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([productId, sortOrder])
+  @@index([productId, sortOrder])
+  @@map("product_specifications")
+}
+
+model QuoteEnquiry {
+  id          String             @id @default(uuid()) @db.Uuid
+  contactName String             @map("contact_name") @db.VarChar(160)
+  company     String?            @db.VarChar(180)
+  email       String             @db.VarChar(254)
+  phone       String?            @db.VarChar(40)
+  message     String             @db.Text
+  productId   String?            @map("product_id") @db.Uuid
+  status      QuoteEnquiryStatus @default(NEW)
+  createdAt   DateTime           @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt   DateTime           @updatedAt @map("updated_at") @db.Timestamptz(3)
+  product     Product?           @relation(fields: [productId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+
+  @@index([status, createdAt])
+  @@index([email, createdAt])
+  @@index([productId])
+  @@map("quote_enquiries")
+}
